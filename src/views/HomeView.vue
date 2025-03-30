@@ -1,8 +1,10 @@
 <script setup>
+import MeteoCitySelect from '@/components/MeteoCitySelect.vue';
+
 </script>
 
 <template>
   <main>
-    <h1>Teste</h1>
+    <MeteoCitySelect />
   </main>
 </template>
