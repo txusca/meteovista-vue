@@ -24,7 +24,6 @@ export const useLocationStore = defineStore('location', () => {
         //   console.warn('Mais de uma cidade encontrada:', data)
       } else {
         location.value = data[0] // Armazena o objeto completo da primeira cidade
-        console.log('Geolocalização obtida:', location.value)
       }
     } catch (err) {
       handleError(err, 'Erro ao buscar coordenadas')
@@ -49,7 +48,6 @@ export const useLocationStore = defineStore('location', () => {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           }
-          console.log('Localização do usuário:', location.value)
         },
         (error) => {
           console.error('Erro ao obter a localização do usuário:', error)
