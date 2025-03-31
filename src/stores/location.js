@@ -3,8 +3,7 @@ import { ref } from 'vue'
 
 // TODO: Em casos de mais de uma cidade recebida na requisição tratar de alguma forma, talvez com um dropdown para que o usuário escolha qual quer usar.
 export const useLocationStore = defineStore('location', () => {
-  const coordinates = ref({ lat: 0, lon: 0 })
-  const geolocation = ref({})
+  const location = ref(null) // Armazena o objeto completo da API ou do navegador
   const error = ref(null)
   const key = import.meta.env.VITE_OPEN_WEATHER_KEY
 
@@ -24,8 +23,8 @@ export const useLocationStore = defineStore('location', () => {
         //   // TODO: Implementar dropdown para múltiplas cidades
         //   console.warn('Mais de uma cidade encontrada:', data)
       } else {
-        geolocation.value = { ...data[0] }
-        console.log('Geolocalização obtida:', geolocation.value)
+        location.value = data[0] // Armazena o objeto completo da primeira cidade
+        console.log('Geolocalização obtida:', location.value)
       }
     } catch (err) {
       handleError(err, 'Erro ao buscar coordenadas')
@@ -46,11 +45,11 @@ export const useLocationStore = defineStore('location', () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          coordinates.value = {
+          location.value = {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           }
-          console.log('Localização do usuário:', coordinates.value)
+          console.log('Localização do usuário:', location.value)
         },
         (error) => {
           console.error('Erro ao obter a localização do usuário:', error)
@@ -61,5 +60,5 @@ export const useLocationStore = defineStore('location', () => {
     }
   }
 
-  return { coordinates, error, geolocation, coordinatesFetch, getUserLocation }
+  return { location, error, coordinatesFetch, getUserLocation }
 })

@@ -26,7 +26,7 @@ const locationStore = useLocationStore();
 const cityName = ref('');
 
 const fetchCoordinates = async () => {
-  await locationStore.coordenatesFetch(cityName.value);
+  await locationStore.coordinatesFetch(cityName.value);
 };
 
 onMounted(() => {
